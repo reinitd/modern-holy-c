@@ -22,6 +22,20 @@ namespace Compiler.Types
                 string line = MethodString[i].Trim();
                 Console.WriteLine(line);
 
+                if(line.Contains("outp"))
+                {
+                    string[] args = line.Split("(")[1].Replace("(", "").Replace(");", "").Split(", ");
+                    string toadd = "";
+
+                    toadd = toadd + BuildWhiteSpace() + $"printf({args[0]}, {args[1]});";
+                    CVersion.Add(toadd);
+                }
+
+                if(line.StartsWith("\""))
+                {
+                    CVersion.Add(BuildWhiteSpace() + $"printf(\"{line.Split("\"")[1]}\");");
+                }
+
                 if(line.Contains("I64") || line.Contains("I32") || line.Contains("string") || line.Contains("double") || line.Contains("char"))
                 {
                     string[] sided = line.Split('=');
@@ -63,15 +77,6 @@ namespace Compiler.Types
                     }
 
                     AddVariable(var);
-                }
-
-                if(line.Contains("outp"))
-                {
-                    string[] args = line.Split("(")[1].Replace("(", "").Replace(");", "").Split(", ");
-                    string toadd = "";
-
-                    toadd = toadd + BuildWhiteSpace() + $"printf({args[0]}, {args[1]});";
-                    CVersion.Add(toadd);
                 }
 
                 if(line.Contains("ret"))
