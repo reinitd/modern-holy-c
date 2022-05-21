@@ -3,7 +3,7 @@
 <div align="left">
   <strong>Revamping Holy C with the help of Terry Davis (We talked to Terry himself, no joke...)</strong>
 </div>
-
+<a href="https://discord.gg/rfdGThEvy9"><b><i>Join the discord server!</i></b></a>
 <br />
 
 <div align="left">
