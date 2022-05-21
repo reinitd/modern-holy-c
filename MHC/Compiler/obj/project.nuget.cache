@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "KEDTRobaRYd/qVsFnPeprQx4E+MGrt3sor+GOncC2jCHGxfeoBiNSt1978Lub0J8f8AuNHKMtcJ+G5+6Fl+BNQ==",
+  "success": true,
+  "projectFilePath": "/home/snib/MHC/Compiler/Compiler.csproj",
+  "expectedPackageFiles": [
+    "/home/snib/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.2/microsoft.aspnetcore.app.ref.6.0.2.nupkg.sha512"
+  ],
+  "logs": []
+}

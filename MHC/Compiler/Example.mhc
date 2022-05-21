@@ -1,0 +1,22 @@
+I64 main() {    
+    string toout = "Hello World!";
+    I64 x = 5;
+    
+    outp("%s", toout);
+    outp("%d", x);
+
+    ret 0;
+}
+
+string notmain()
+{
+    I64 x = 500;
+    outp("%d", x);   
+    ret "Hello World!"; 
+}
+
+I32 GetVal()
+{
+    I32 x = 1;
+    ret x;
+}
