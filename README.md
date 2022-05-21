@@ -12,9 +12,6 @@
   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/QAEZZ/modern-holy-c">
 </div>
 
-# Modern Holy C
-#### Revamping Holy C with the help of Terry Davis (We talked to Terry himself, no joke...)
-
 ###
 
 <img alt="C" src="https://media.discordapp.net/attachments/977271254870544385/977271425306075256/mhc.png" style="display:block;width:20%;margin-left:auto;margin-right:auto;">
