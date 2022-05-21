@@ -21,6 +21,12 @@ namespace Compiler.Types
 
             for(int i = 0; i < Contents.Count; i++)
             {
+                if(Contents[i].StartsWith("strct"))
+                {
+                    //Add logic
+                    continue;
+                }
+
                 if(Contents[i].Contains("(") && Contents[i + 1].Contains("{") || Contents[i].Contains("{") && Contents[i].Contains("("))
                 {
                     List<string> MethodString = new();
@@ -32,6 +38,7 @@ namespace Compiler.Types
                         }
 
                         MethodString.Add(Contents[x]);
+                        i++;
                     }
 
                     Method method = new Method(MethodString);

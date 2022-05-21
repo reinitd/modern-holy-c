@@ -1,0 +1,7 @@
+I64 main()
+{
+    string x = stackalloc("Hello World!");
+    string heapstr = heapalloc("Hello World!");
+
+    outp("%s", heapstr);
+}

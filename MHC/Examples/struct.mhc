@@ -1,0 +1,13 @@
+struct ExampleStruct
+{
+    I64 x;
+    string y;
+}
+
+strct ExampleStruct ConstructStruct()
+{
+    ExampleStruct x;
+    x.x = 5;
+    x.y = "Hello World!";
+    ret x;
+}
