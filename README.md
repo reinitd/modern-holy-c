@@ -2,7 +2,7 @@
 
 
 ### Todo:
-- [ ]Add support for While loops
+- [ ] Add support for While loops
 - [ ] Add support for For loops
 - [ ] Add support for If statements
 - [ ] Add support for Doubles
