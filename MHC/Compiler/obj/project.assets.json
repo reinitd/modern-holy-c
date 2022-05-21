@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/snib/MHC/Compiler/Compiler.csproj",
+      "projectUniqueName": "/home/snib/modern-holy-c/MHC/Compiler/Compiler.csproj",
       "projectName": "Compiler",
-      "projectPath": "/home/snib/MHC/Compiler/Compiler.csproj",
+      "projectPath": "/home/snib/modern-holy-c/MHC/Compiler/Compiler.csproj",
       "packagesPath": "/home/snib/.nuget/packages/",
-      "outputPath": "/home/snib/MHC/Compiler/obj/",
+      "outputPath": "/home/snib/modern-holy-c/MHC/Compiler/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/snib/.nuget/NuGet/NuGet.Config"

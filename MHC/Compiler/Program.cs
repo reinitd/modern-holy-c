@@ -11,7 +11,7 @@ namespace Compiler
                 Environment.Exit(0);
             }
 
-            Reader r = new Reader(args[0]);
+            Reader r = new Reader(args[0], args[1]);
             await r.StartRead();       
         }
     }

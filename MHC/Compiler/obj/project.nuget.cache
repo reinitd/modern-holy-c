@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KEDTRobaRYd/qVsFnPeprQx4E+MGrt3sor+GOncC2jCHGxfeoBiNSt1978Lub0J8f8AuNHKMtcJ+G5+6Fl+BNQ==",
+  "dgSpecHash": "gVJvAkg15M5q65iH9ThmeVr+NwuLaDdQcDDuHtEgieTq1IellCRHB4xax6kYp8ZxJHFmjpodPYl1x42vBHLYFg==",
   "success": true,
-  "projectFilePath": "/home/snib/MHC/Compiler/Compiler.csproj",
+  "projectFilePath": "/home/snib/modern-holy-c/MHC/Compiler/Compiler.csproj",
   "expectedPackageFiles": [
     "/home/snib/.nuget/packages/microsoft.aspnetcore.app.ref/6.0.2/microsoft.aspnetcore.app.ref.6.0.2.nupkg.sha512"
   ],
