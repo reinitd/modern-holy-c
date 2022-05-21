@@ -1,5 +1,4 @@
-# Modern Holy C
-### Revamping Holy C with the help of Terry Davis (We talked to Terry himself, no joke...)
+# Modern Holy C \ Revamping Holy C with the help of Terry Davis (We talked to Terry himself, no joke...)
 
 ###
 
