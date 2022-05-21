@@ -1,12 +1,12 @@
-<h1 align="center">Modern Holy C</h1>
+<h1 align="left">Modern Holy C</h1>
 
-<div align="center">
+<div align="left">
   <strong>Revamping Holy C with the help of Terry Davis (We talked to Terry himself, no joke...)</strong>
 </div>
 
 <br />
 
-<div align="center">
+<div align="left">
   <img alt="GitHub code size in bytes" src="https://img.shields.io/github/languages/code-size/QAEZZ/modern-holy-c">
   <img alt="GitHub license" src="https://img.shields.io/github/license/QAEZZ/modern-holy-c">
   <img alt="GitHub commit activity" src="https://img.shields.io/github/commit-activity/m/QAEZZ/modern-holy-c">
