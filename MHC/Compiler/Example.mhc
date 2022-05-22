@@ -1,13 +1,3 @@
-I64 main() {    
-    string toout = "Hello World!";
-    I64 x = 5;
-    
-    outp("%s", toout);
-    outp("%d", x);
-
-    ret 0;
-}
-
 string notmain()
 {
     I64 x = 500;
@@ -15,8 +5,8 @@ string notmain()
     ret "Hello World!"; 
 }
 
-I32 GetVal()
+I64 CallStr()
 {
-    I32 x = 1;
+    string x = notmain();
     ret x;
 }

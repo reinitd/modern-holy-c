@@ -4,16 +4,24 @@ namespace Compiler.Types
     {
         public string Name { get; set; }
         public string ReturnType { get; set; }
-        public List<Variable> Vars { get; set; }
+        public string ArgConstruct { get; set; } 
         public List<string> CVersion { get; set; } = new List<string>();
         public int CurrentWhitespaceCount { get; set; }
 
         public Method(List<string> MethodString)
         {
-            Name = MethodString[0].Remove(MethodString[0].IndexOf('(')).Split(" ")[1];
+            Name = MethodString[0].Split(" ")[1].Split("(")[0];
+            Console.WriteLine(Name);
             ReturnType = HCToC(MethodString[0].Split(" ")[0]);
 
-            CVersion.Add($"{ReturnType} {Name}()");
+            string[] arguments = MethodString[0].Replace(")", "").Split(", ");
+            ArgConstruct = ArgConstruct + arguments[arguments.Length - 1];
+            for(int i = 2; i < arguments.Length; i++)
+            {
+                ArgConstruct = ArgConstruct + ", " + arguments[i];
+            }
+
+            CVersion.Add($"{ReturnType} {Name}({ArgConstruct})");
 
             CurrentWhitespaceCount = 1;
 
@@ -29,11 +37,13 @@ namespace Compiler.Types
 
                     toadd = toadd + BuildWhiteSpace() + $"printf({args[0]}, {args[1]});";
                     CVersion.Add(toadd);
+                    continue;
                 }
 
                 if(line.StartsWith("\""))
                 {
                     CVersion.Add(BuildWhiteSpace() + $"printf(\"{line.Split("\"")[1]}\");");
+                    continue;
                 }
 
                 if(line.Contains("I64") || line.Contains("I32") || line.Contains("string") || line.Contains("double") || line.Contains("char"))
@@ -50,30 +60,41 @@ namespace Compiler.Types
                         var.IsPointer = true;
                     }
 
-                    switch(var.T)
+                    if(sided[sided.Length - 1].Contains("(") && !sided[sided.Length - 1].Contains("\""))
                     {
-                        case MHCType.I64:
-                        {
-                            var.SharpVal = int.Parse(sided[sided.Length - 1].Trim().Replace(";", ""));
-                            var.ParsedValue = sided[1].Trim().Replace(";", "");
-                            break;
-                        }
+                        var.MethodRet = true;
+                    }
 
-                        case MHCType.String:
+                    if(var.MethodRet == false)
+                    {
+                        switch(var.T)
                         {
-                            //Account for if they have '=' in the string
-                            string val = "\"" + line.Split("\"")[1] + "\"";
-                            var.ParsedValue = val;
-                            var.SharpVal = line.Split("\"")[1];
-                            break;
-                        }
+                            case MHCType.I64:
+                            {
+                                var.SharpVal = int.Parse(sided[sided.Length - 1].Trim().Replace(";", ""));
+                                var.ParsedValue = sided[1].Trim().Replace(";", "");
+                                break;
+                            }
 
-                        case MHCType.I32:
-                        {
-                            var.SharpVal = float.Parse(sided[sided.Length - 1].Trim().Replace(";", ""));
-                            var.ParsedValue = sided[1].Trim();
-                            break;
+                            case MHCType.String:
+                            {
+                                //Account for if they have '=' in the string
+                                string val = "\"" + line.Split("\"")[1] + "\"";
+                                var.ParsedValue = val;
+                                var.SharpVal = line.Split("\"")[1];
+                                break;
+                            }
+
+                            case MHCType.I32:
+                            {
+                                var.SharpVal = float.Parse(sided[sided.Length - 1].Trim().Replace(";", ""));
+                                var.ParsedValue = sided[1].Trim();
+                                break;
+                            }
                         }
+                    } else {
+                        var.SharpVal = null;
+                        var.ParsedValue = sided[sided.Length - 1].Trim().Replace(";", "");
                     }
 
                     AddVariable(var);
@@ -105,54 +126,103 @@ namespace Compiler.Types
         {
             string toadd = "";
 
-            switch(var.T)
+            if(var.MethodRet == false)
             {
-                case MHCType.String:
+                switch(var.T)
                 {
-                    string val = (string)var.SharpVal;
+                    case MHCType.String:
+                    {
+                        string val = (string)var.SharpVal;
 
-                    if(!var.IsPointer)
-                    {
-                        toadd = toadd + BuildWhiteSpace() + $"char {var.Name}[{val.Length}] = {var.ParsedValue};";
-                    } else
-                    {
-                        toadd = toadd + BuildWhiteSpace() + $"char *{var.Name}[{val.Length}] = {var.ParsedValue};";
+                        if(!var.IsPointer)
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"char {var.Name}[{val.Length}] = {var.ParsedValue};";
+                        } else
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"char *{var.Name}[{val.Length}] = {var.ParsedValue};";
+                        }
+
+                        CVersion.Add(toadd);
+                        break;
                     }
 
-                    CVersion.Add(toadd);
-                    break;
+                    case MHCType.I64:
+                    {
+                        int val = (int)var.SharpVal;
+                        
+                        if(!var.IsPointer)
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"int {var.Name} = {var.ParsedValue};";
+                        } else 
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"int *{var.Name} = {var.ParsedValue};";
+                        }
+
+                        CVersion.Add(toadd);
+                        break;
+                    }
+
+                    case MHCType.I32:
+                    {
+                        float val = (float)var.SharpVal;
+
+                        if(!var.IsPointer)
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"float {var.Name} = {var.ParsedValue}";
+                        } else 
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"float *{var.Name} = {var.ParsedValue}";
+                        }
+
+                        CVersion.Add(toadd);
+                        break;
+                    }
                 }
-
-                case MHCType.I64:
+            } else
+            {
+                switch(var.T)
                 {
-                    int val = (int)var.SharpVal;
-                    
-                    if(!var.IsPointer)
+                    case MHCType.String:
                     {
-                        toadd = toadd + BuildWhiteSpace() + $"int {var.Name} = {var.ParsedValue};";
-                    } else 
-                    {
-                        toadd = toadd + BuildWhiteSpace() + $"int *{var.Name} = {var.ParsedValue};";
+                        string val = (string)var.SharpVal;
+
+                        toadd = toadd + BuildWhiteSpace() + $"char *{var.Name} = {var.ParsedValue};";
+
+                        CVersion.Add(toadd);
+                        break;
                     }
 
-                    CVersion.Add(toadd);
-                    break;
-                }
-
-                case MHCType.I32:
-                {
-                    float val = (float)var.SharpVal;
-
-                    if(!var.IsPointer)
+                    case MHCType.I64:
                     {
-                        toadd = toadd + BuildWhiteSpace() + $"float {var.Name} = {var.ParsedValue}";
-                    } else 
-                    {
-                        toadd = toadd + BuildWhiteSpace() + $"float *{var.Name} = {var.ParsedValue}";
+                        int val = (int)var.SharpVal;
+                        
+                        if(!var.IsPointer)
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"int {var.Name} = {var.ParsedValue};";
+                        } else 
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"int *{var.Name} = {var.ParsedValue};";
+                        }
+
+                        CVersion.Add(toadd);
+                        break;
                     }
 
-                    CVersion.Add(toadd);
-                    break;
+                    case MHCType.I32:
+                    {
+                        float val = (float)var.SharpVal;
+
+                        if(!var.IsPointer)
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"float {var.Name} = {var.ParsedValue}";
+                        } else 
+                        {
+                            toadd = toadd + BuildWhiteSpace() + $"float *{var.Name} = {var.ParsedValue}";
+                        }
+
+                        CVersion.Add(toadd);
+                        break;
+                    }
                 }
             }
         }
@@ -215,6 +285,7 @@ namespace Compiler.Types
         public bool IsPointer { get; set; }
         public object? SharpVal { get; set; }
         public string? ParsedValue { get; set; }
+        public bool MethodRet { get; set; } = false;
     }
 
     public enum MHCType

@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdlib.h>
 
 #ifndef MHCSTRINGS_H
 #define MHCSTRINGS_H

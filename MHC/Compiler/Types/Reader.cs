@@ -27,7 +27,7 @@ namespace Compiler.Types
                     continue;
                 }
 
-                if(Contents[i].Contains("(") && Contents[i + 1].Contains("{") || Contents[i].Contains("{") && Contents[i].Contains("("))
+                if(Contents[i].Contains("I64") || Contents.Contains("I32") || Contents[i].Contains("string"))
                 {
                     List<string> MethodString = new();
                     for(int x = i; x < Contents.Count; x++)
