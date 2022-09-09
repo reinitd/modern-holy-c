@@ -14,6 +14,8 @@
 
 ###
 
+<h1>Dead project. Party over. Go home!</h1>
+
 <img alt="C" src="https://media.discordapp.net/attachments/977271254870544385/977271425306075256/mhc.png" style="display:block;width:20%;margin-left:auto;margin-right:auto;">
 
 <strong>ALL HAIL TERRY A. DAVIS</strong>
